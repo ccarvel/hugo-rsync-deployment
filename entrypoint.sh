@@ -13,13 +13,13 @@ hugo version
 hugo $1
 
 mkdir "${HOME}/.ssh"
-echo "${VPS_DEPLOY_KEY}" > "${HOME}/.ssh/id_rsa_deploy"
-chmod 600 "${HOME}/.ssh/id_rsa_deploy"
+echo "${VPS_DEPLOY_KEY}" > "${HOME}/.ssh/github-actions"
+chmod 600 "${HOME}/.ssh/github-actions"
 
 rsync --version
 sh -c "
 rsync $2 \
-  -e 'ssh -i ${HOME}/.ssh/id_rsa_deploy -o StrictHostKeyChecking=no' \
+  -e 'ssh -i ${HOME}/.ssh/github-actions -o StrictHostKeyChecking=no' \
   ${GITHUB_WORKSPACE}/public/ \
   ${VPS_DEPLOY_USER}@${VPS_DEPLOY_HOST}:${VPS_DEPLOY_DEST}
 "
